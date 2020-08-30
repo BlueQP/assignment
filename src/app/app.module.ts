@@ -8,13 +8,15 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { SocketService } from "./services/socket.service";
 import { ChatGroupListComponent } from './chat-group-list/chat-group-list.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    ChatGroupListComponent
+    ChatGroupListComponent,
+    ChatPageComponent
   ],
   imports: [
     AppRoutingModule,

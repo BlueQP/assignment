@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { SocketService } from '../services/socket.service';
+import { viewClassName } from '@angular/compiler';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.less']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
+  @ViewChild('chatMessageAreaNgID') private chatMessageArea :ElementRef;
+
 
   public messageContent:string="";
   messages:string[] = [];
@@ -15,6 +18,11 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initIoConnection();
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked(){
+    this.scrollToBottom();
   }
 
   private initIoConnection(){
@@ -32,5 +40,11 @@ export class ChatComponent implements OnInit {
     else{
       console.log("no message");
     }
+  }
+
+  private scrollToBottom():void {
+    try{
+      this.chatMessageArea.nativeElement.scrollTop = this.chatMessageArea.nativeElement.scrollHeight;
+    }catch(err){throw err;}
   }
 }

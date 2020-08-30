@@ -1,22 +1,36 @@
-<div class="row">
-    <div class="col-4">
-        <app-chat-group-list></app-chat-group-list>
+
+<nav id="navbar-example2" class="navbar navbar-light bg-light">
+<a class="navbar-brand" href="#">Participants</a>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+    <a class="nav-link" href="#fat">@fat</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#mdo">@mdo</a>
+    </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#one">one</a>
+        <a class="dropdown-item" href="#two">two</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#three">three</a>
     </div>
-    <div class="col-8">
-        <form>
-            <div class="form-group">
-                <label for="messageContent">Message</label>
-                <input type="text" [(ngModel)]="messageContent" name="messageContent" class="from-control"/>
-            </div>
-            <div class="form-group">
-                <button type="button" (click)="send()" class="btn btn-primary">send</button>
-            </div>
-        </form>
-        <h3>Chat Message</h3>
-        <ul>
-            <li *ngFor="let message of messages">
-                {{message}}
-            </li>
-        </ul>
+    </li>
+</ul>
+</nav>
+<div #chatMessageAreaNgID data-spy="scroll" data-target="#navbar-example2" data-offset="0" class="chatMessageArea">
+    <div *ngFor="let message of messages">
+        <h4 id="personNamePlaceHolder">@somePersonName</h4>
+        <p>{{message}}</p>
     </div>
 </div>
+<form>
+    <div class="form-group">
+      <label for="messageContent">Message</label>
+      <textarea class="form-control" id="messageContent"  [(ngModel)]="messageContent" name="messageContent" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="button" (click)="send()" class="btn btn-primary">send</button>
+    </div>
+</form>
