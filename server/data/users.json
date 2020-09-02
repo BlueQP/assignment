@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "email": "u1@t.c",
+        "username": "super",
+        "password": "1",
+        "valid": true,
+        "role": {
+            "id": 1,
+            "name": "super admin"
+        }
+    },
+    {
+        "id": 2,
+        "username": "u2@t.c",
+        "password": "2",
+        "email": "u2@t.c",
+        "valid": true,
+        "role": {
+            "id": 2,
+            "name": "group admin"
+        }
+    },
+    {
+        "id": 3,
+        "username": "u3@t.c",
+        "password": "3",
+        "email": "u3@t.c",
+        "valid": false,
+        "role":{
+            "id": 3,
+            "name": "group assis"
+        }
+    }
+]

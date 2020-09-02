@@ -21,8 +21,11 @@
 </nav>
 <div #chatMessageAreaNgID data-spy="scroll" data-target="#navbar-example2" data-offset="0" class="chatMessageArea">
     <div *ngFor="let message of messages">
-        <h4 id="personNamePlaceHolder">@somePersonName</h4>
-        <p>{{message}}</p>
+        <div>
+            <h6 id="personNamePlaceHolder" class="inlineHeading">@{{message.sentBy.username}}</h6>
+            <span class="timeStampSpanClass">{{message.timestamp | date:'medium'}}</span>
+        </div>
+        <p>{{message.messageBody}}</p>
     </div>
 </div>
 <form>

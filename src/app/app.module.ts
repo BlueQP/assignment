@@ -9,22 +9,39 @@ import { CommonModule } from "@angular/common";
 import { SocketService } from "./services/socket.service";
 import { ChatGroupListComponent } from './chat-group-list/chat-group-list.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { LoginComponent } from './login/login.component';
+import { AuthService } from "./services/authentication/auth.service";
+import { HttpClientModule } from "@angular/common/http";
+import { UserHelper } from "./helpers/userHelper.helper";
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     ChatGroupListComponent,
-    ChatPageComponent
+    ChatPageComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
+    HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
-  providers: [SocketService],
+  providers: [SocketService,
+    AuthService,
+    UserHelper],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas);
+    library.addIconPacks(far);
+  }
+}

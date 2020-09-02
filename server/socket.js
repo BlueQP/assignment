@@ -1,3 +1,5 @@
+const message = require('./model/message')
+
 module.exports = {
     connect: function(io, PORT){
         io.on('connection', (socket) => {

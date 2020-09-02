@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { SocketService } from '../services/socket.service';
 import { viewClassName } from '@angular/compiler';
+import { Message } from "../model/message.model";
+import { User } from '../model/user.model';
+import { UserHelper } from '../helpers/userHelper.helper';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -11,10 +15,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
 
   public messageContent:string="";
-  messages:string[] = [];
+  messages:Message[] = [];
   ioConnection:any;
-
-  constructor(private socketService:SocketService) { }
+  user:User;
+  constructor(private socketService:SocketService, private userHelper:UserHelper) {
+    userHelper.getUser().subscribe(user => this.user = user);
+   }
 
   ngOnInit(): void {
     this.initIoConnection();
@@ -27,14 +33,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   private initIoConnection(){
     this.socketService.initSocket();
-    this.ioConnection = this.socketService.onMessage().subscribe((message:string) => {
+    this.ioConnection = this.socketService.onMessage().subscribe((message:Message) => {
       this.messages.push(message);
     });
   }
 
   public send(){
     if (this.messageContent){
-      this.socketService.send(this.messageContent);
+      var newMessage:Message = new Message();
+      newMessage.messageBody = this.messageContent;
+      newMessage.timestamp = new Date();
+      this.userHelper.getUser();
+      newMessage.sentBy = this.user;
+      this.socketService.send(newMessage);
       this.messageContent = null;
     }
     else{
