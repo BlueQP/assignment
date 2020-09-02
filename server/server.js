@@ -18,5 +18,16 @@ sockets.connect(io, PORT);
 //start server
 server.listen(http, PORT);
 
-var loginController = require('./controller/loginController')();
-app.use('/api/login', loginController);
+//mongoDB settings
+var mongoSettings = require('./mongoScript');
+
+(async () => {
+    //connect to db
+    const db = await mongoSettings.dbConnect();
+    //seedings
+    await mongoSettings.seed(db);
+    //controller routings
+    var loginController = require('./controller/loginController')(db, app);
+    app.use('/api/login', loginController);
+})();
+

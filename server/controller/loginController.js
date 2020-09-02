@@ -5,7 +5,7 @@ const { debug } = require('console');
 const User = require('../model/user').User;
 const LoginResponse = require('../model/loginResponse').LoginResponse;
 
-var routes = function () {
+var routes = function (db, app) {
     router.route('/').post(function (req, res) {
         var user = new User();
         user = req.body;
