@@ -11,6 +11,5 @@
            "name": "launch throgh vs code",
            "program": "${workspaceFolder}\\server\\server.js"
         }
-       
     ]
 }

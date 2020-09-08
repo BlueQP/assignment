@@ -1,6 +1,7 @@
 class User{
     constructor(){
     }
+    _id;
     id;
     username;
     password;

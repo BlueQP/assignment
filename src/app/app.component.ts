@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserHelper } from './helpers/userHelper.helper';
 import { Router } from '@angular/router';
+import { User } from './model/user.model';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,13 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'chat';
-  user = null;
+  user: User;
   isLoggedIn = false;
   private userSubscription;
   private isLoggedInSubscription;
 
   constructor(private userHelper:UserHelper, private router: Router){
-    
+  
   }
   
   ngOnInit(){

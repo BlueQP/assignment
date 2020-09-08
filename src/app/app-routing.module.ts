@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { ChatPageComponent } from "./chat-page/chat-page.component";
 import { LoginComponent } from "./login/login.component";
+import { UserEditComponent } from "./access/user-edit/user-edit.component";
 
-const routes: Routes = [{path: '', component: ChatPageComponent},
-{path:'login', component: LoginComponent}];
+const routes: Routes = [{path: '', component: LoginComponent},
+{path:'chat', component: ChatPageComponent},
+{path:'accesscontrol/user', component:UserEditComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

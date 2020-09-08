@@ -7,9 +7,11 @@ export class UserHelper{
   public isLoggedIn:boolean;
   public isUserValid:boolean;
   public user:User;
+  public selectedUser:User;
   private userObservable = new Subject<User>();
   private isLoggedInObservable = new Subject<boolean>();
   private isUserValidObservable = new Subject<boolean>(); 
+  private selectedUserObservable = new Subject<User>();
   constructor() {
     
   }
@@ -53,4 +55,13 @@ export class UserHelper{
     this.getIsUserValid();
   }
 
+  public setCurrentSelectedUser(user:User){
+    this.selectedUser = user;
+    this.selectedUserObservable.next(this.selectedUser);
+  }
+
+  public getCurrentSelectedUser():Observable<User>{
+    this.selectedUserObservable.next(this.selectedUser);
+    return this.selectedUserObservable.asObservable();
+  }
 }

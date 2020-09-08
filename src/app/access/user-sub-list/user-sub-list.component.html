@@ -1,0 +1,8 @@
+<ul class="list-group">
+    <li class="list-group-item list-group-item-action userListClass" 
+    *ngFor="let u of userList" 
+    (click)="selectUser(u)"
+    [ngClass]="{'active': currentSelectedUser == u}">
+        {{u.username}} | {{u.role.name}}
+    </li>
+</ul>

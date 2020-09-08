@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
           this.loginResponse = data.userLogin;
           this.errorMessageClass = this.ERROR_MESSAGE_CLASS_HIDE_VALUE;
           this.userHelper.refreashSession();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/chat');
          }
          else {
           this.loginResponse = data.userLogin;

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const path = require('path');
 const cors = require('cors');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -13,6 +14,8 @@ app.use(jsonParser);
 const PORT = 3000;
 //cross origin
 app.use(cors());
+//static resources
+app.use('/static',express.static(path.join(__dirname, 'serverResources')));
 //socket setup
 sockets.connect(io, PORT);
 //start server
@@ -25,9 +28,14 @@ var mongoSettings = require('./mongoScript');
     //connect to db
     const db = await mongoSettings.dbConnect();
     //seedings
-    await mongoSettings.seed(db);
+    //uncomment this line below to seed database
+    //*****
+    // await mongoSettings.seed(db);
+    //*****
     //controller routings
     var loginController = require('./controller/loginController')(db, app);
-    app.use('/api/login', loginController);
+    var userController = require('./controller/userController')(db, app);
+    app.use('/api/login',await loginController);
+    app.use('/api/user', await userController);
 })();
 

@@ -17,14 +17,19 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from "./services/authentication/auth.service";
 import { HttpClientModule } from "@angular/common/http";
 import { UserHelper } from "./helpers/userHelper.helper";
-
+import { UserEditComponent } from './access/user-edit/user-edit.component';
+import { UserSubListComponent } from './access/user-sub-list/user-sub-list.component';
+import { UserService } from "./services/user/user.service";
+import { NgToggleModule } from "@nth-cloud/ng-toggle";
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     ChatGroupListComponent,
     ChatPageComponent,
-    LoginComponent
+    LoginComponent,
+    UserEditComponent,
+    UserSubListComponent
   ],
   imports: [
     AppRoutingModule,
@@ -32,11 +37,14 @@ import { UserHelper } from "./helpers/userHelper.helper";
     HttpClientModule,
     CommonModule,
     FormsModule,
+    NgToggleModule,
     FontAwesomeModule
   ],
   providers: [SocketService,
     AuthService,
-    UserHelper],
+    UserHelper,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <app-user-sub-list></app-user-sub-list>
+        </div>
+        <div class="col-8" *ngIf="selectedUser">
+            <div class="form-group">
+                <label for="selectedUser.email">Email address</label>
+                <input type="email" class="form-control" id="userEmailInputId" name="selectedUser.email"
+                    placeholder="name@example.com" [(ngModel)]="selectedUser.email">
+            </div>
+            <div class="form-group">
+                <label for="selectedUser.username">Username</label>
+                <input type="text" class="form-control" id="usernameInputId" placeholder="username to login"
+                    name="selectedUser.username" [(ngModel)]="selectedUser.username">
+            </div>
+            <div class="form-group">
+                <label for="selectedUser.password">Password</label>
+                <input type="password" class="form-control" name="selectedUser.password" id="exampleInputPassword1"
+                    [(ngModel)]="selectedUser.password">
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{selectedUser.role? selectedUser.role.name: "Select User Role"}}
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" *ngFor="let r of roleList" (click)="setUserRole(r)">{{r.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>User Enabled</label><br/>
+                <ng-toggle onColor="success" onText="Valid" offColor="danger"
+                    offText="Invalid" [disabled]="false" [size]=""
+                    [(ngModel)]="selectedUser.valid"></ng-toggle>
+            </div>
+        </div>
+    </div>
+</div>
