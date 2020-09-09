@@ -15,10 +15,19 @@ export class UserService {
   private API_URL_PATH = "/api";
   private USER_LIST_URI = "/user";
   private ROLE_LIST_URI = "/user/roles";
+  private USER_SAVE_URI = "/user/updateOrCreate";
   private USER_LIST_URL = this.SERVER_URL + this.API_URL_PATH + 
   this.USER_LIST_URI;
   private ROLE_LIST_URL = this.SERVER_URL + this.API_URL_PATH + this.ROLE_LIST_URI;
+  private USER_SAVE_URL = this.SERVER_URL + this.API_URL_PATH + this.USER_SAVE_URI;
+  
+  private HTTP_OPTIONS = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  }
+  
   user:User;
+
+
 
   public userListObservable:Subject<Array<User>>;
   
@@ -35,6 +44,9 @@ export class UserService {
     return this.httpClient.get(this.ROLE_LIST_URL);
   }
 
+  public saveUser(userToUpdate:User){
+    return this.httpClient.post<User>(this.USER_SAVE_URL, userToUpdate, this.HTTP_OPTIONS);
+  }
 
 
   

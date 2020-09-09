@@ -21,6 +21,11 @@ import { UserEditComponent } from './access/user-edit/user-edit.component';
 import { UserSubListComponent } from './access/user-sub-list/user-sub-list.component';
 import { UserService } from "./services/user/user.service";
 import { NgToggleModule } from "@nth-cloud/ng-toggle";
+import { GroupComponent } from './group/group.component';
+import { GroupSubListComponent } from './group/group-sub-list/group-sub-list.component';
+import { GroupHelper } from "./helpers/groupHelper.helper";
+import { GroupService } from "./services/group/group.service";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +34,9 @@ import { NgToggleModule } from "@nth-cloud/ng-toggle";
     ChatPageComponent,
     LoginComponent,
     UserEditComponent,
-    UserSubListComponent
+    UserSubListComponent,
+    GroupComponent,
+    GroupSubListComponent
   ],
   imports: [
     AppRoutingModule,
@@ -43,7 +50,9 @@ import { NgToggleModule } from "@nth-cloud/ng-toggle";
   providers: [SocketService,
     AuthService,
     UserHelper,
-    UserService
+    GroupHelper,
+    UserService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,9 +12,8 @@ export class UserSubListComponent implements OnInit {
   public userList: Array<User>;
   public currentSelectedUser: User;
   constructor(private userService:UserService, private userHelper:UserHelper) {
-    this.userService.getAllUsers().subscribe((ul: Array<User>) =>{
-      this.userList = ul;
-    })
+    this.refreshUserList();
+    this.userHelper.getAllUsersList().subscribe(ul => this.userList = ul);
   }
 
   ngOnInit(): void {
@@ -23,5 +22,16 @@ export class UserSubListComponent implements OnInit {
   selectUser(user:User){
     this.currentSelectedUser = user;
     this.userHelper.setCurrentSelectedUser(this.currentSelectedUser);
+  }
+  createUser(){
+    this.currentSelectedUser = new User();
+    this.userHelper.setCurrentSelectedUser(this.currentSelectedUser);
+  }
+
+  refreshUserList(){
+    this.userService.getAllUsers().subscribe((ul: Array<User>) =>{
+      this.userList = ul;
+      this.userHelper.setAllUsersList(this.userList);
+    })
   }
 }

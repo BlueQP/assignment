@@ -10,6 +10,9 @@
         <li class="nav-item" *ngIf="isLoggedIn && user.role.name == 'Super Admin'">
             <a class="nav-link" routerLink="/accesscontrol/user">Access Control</a>
         </li>
+        <li class="nav-item" *ngIf="isLoggedIn && (user.role.name == 'Super Admin' || user.role.name == 'Group Admin')">
+            <a class="nav-link" routerLink="/groupControl">Group Control</a>
+        </li>
         </ul>
         
         <ul class="nav navbar-nav navbar-right">

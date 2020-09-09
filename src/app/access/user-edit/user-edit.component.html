@@ -4,6 +4,9 @@
             <app-user-sub-list></app-user-sub-list>
         </div>
         <div class="col-8" *ngIf="selectedUser">
+            <div class="alert alert-success" role="alert" *ngIf="showSaveMessage">
+                {{saveMessage}}
+            </div>
             <div class="form-group">
                 <label for="selectedUser.email">Email address</label>
                 <input type="email" class="form-control" id="userEmailInputId" name="selectedUser.email"
@@ -33,10 +36,39 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>User Enabled</label><br/>
-                <ng-toggle onColor="success" onText="Valid" offColor="danger"
-                    offText="Invalid" [disabled]="false" [size]=""
-                    [(ngModel)]="selectedUser.valid"></ng-toggle>
+                <label>User Enabled</label><br />
+                <ng-toggle onColor="success" onText="Valid" offColor="danger" offText="Invalid" [disabled]="false"
+                    [size]="" [(ngModel)]="selectedUser.valid"></ng-toggle>
+            </div>
+            <br />
+            <br />
+            <!-- Button trigger modal -->
+            <!-- data-toggle="modal" data-target="#saveConfirmationModal" -->
+            <button type="button" class="btn btn-primary" 
+            (click)="openSaveDialog()">
+                Save
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="saveConfirmationModal" tabindex="-1" aria-labelledby="saveConfirmation"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="saveConfirmation">Save Confirm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{saveConfirmationMessage}}
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn" [ngClass]="proceedButtonClass" (click)="confirmSaveUser()">Proceed</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

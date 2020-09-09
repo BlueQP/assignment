@@ -23,6 +23,7 @@ server.listen(http, PORT);
 
 //mongoDB settings
 var mongoSettings = require('./mongoScript');
+const { GroupedObservable } = require('rxjs');
 
 (async () => {
     //connect to db
@@ -35,7 +36,9 @@ var mongoSettings = require('./mongoScript');
     //controller routings
     var loginController = require('./controller/loginController')(db, app);
     var userController = require('./controller/userController')(db, app);
+    var groupController = require('./controller/groupController')(db,app);
     app.use('/api/login',await loginController);
     app.use('/api/user', await userController);
+    app.use('/api/group', await groupController);
 })();
 

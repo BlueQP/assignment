@@ -8,10 +8,12 @@ export class UserHelper{
   public isUserValid:boolean;
   public user:User;
   public selectedUser:User;
+  public allUsersList:Array<User>;
   private userObservable = new Subject<User>();
   private isLoggedInObservable = new Subject<boolean>();
   private isUserValidObservable = new Subject<boolean>(); 
   private selectedUserObservable = new Subject<User>();
+  private allUsersListObservable = new Subject<Array<User>>();
   constructor() {
     
   }
@@ -63,5 +65,15 @@ export class UserHelper{
   public getCurrentSelectedUser():Observable<User>{
     this.selectedUserObservable.next(this.selectedUser);
     return this.selectedUserObservable.asObservable();
+  }
+
+  public setAllUsersList(allUsersList: Array<User>){
+    this.allUsersList = allUsersList;
+    this.allUsersListObservable.next(this.allUsersList);
+  }
+
+  public getAllUsersList():Observable<Array<User>>{
+    this.allUsersListObservable.next(this.allUsersList);
+    return this.allUsersListObservable.asObservable();
   }
 }
