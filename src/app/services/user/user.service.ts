@@ -5,6 +5,7 @@ import { User } from 'src/app/model/user.model';
 import { Router } from '@angular/router';
 import { map } from "rxjs/operators";
 import { Observable, Subject } from 'rxjs';
+import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,12 @@ export class UserService {
   private USER_LIST_URI = "/user";
   private ROLE_LIST_URI = "/user/roles";
   private USER_SAVE_URI = "/user/updateOrCreate";
+  private PORTRAIT_UPDATE_URI = '/user/changePortrait';
   private USER_LIST_URL = this.SERVER_URL + this.API_URL_PATH + 
   this.USER_LIST_URI;
   private ROLE_LIST_URL = this.SERVER_URL + this.API_URL_PATH + this.ROLE_LIST_URI;
   private USER_SAVE_URL = this.SERVER_URL + this.API_URL_PATH + this.USER_SAVE_URI;
-  
+  private PORTRAIT_UPDATE_URL = this.SERVER_URL + this.API_URL_PATH + this.PORTRAIT_UPDATE_URI;
   private HTTP_OPTIONS = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
@@ -48,6 +50,10 @@ export class UserService {
     return this.httpClient.post<User>(this.USER_SAVE_URL, userToUpdate, this.HTTP_OPTIONS);
   }
 
+  public uploadPortrait(formData:FormData){
+    return this.httpClient.post(this.PORTRAIT_UPDATE_URL, formData);
+  }
 
+  
   
 }

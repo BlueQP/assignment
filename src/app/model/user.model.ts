@@ -7,4 +7,5 @@ export class User {
     role:Role;
     valid:boolean;
     password:string;
+    portraitFileName:String;
 }

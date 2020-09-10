@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GroupService } from 'src/app/services/group/group.service';
 import { ChatGroup } from "../../model/chatGroup";
 import { GroupHelper } from 'src/app/helpers/groupHelper.helper';
 import { GroupPath } from 'src/app/model/groupPath.model';
 import { ObjectUnsubscribedError } from 'rxjs';
 import { User } from 'src/app/model/user.model';
+import { UserHelper } from 'src/app/helpers/userHelper.helper';
 declare var $:any;
 @Component({
   selector: 'app-group-sub-list',
@@ -15,11 +16,16 @@ export class GroupSubListComponent implements OnInit {
   public groups:Array<ChatGroup>;
   public currentSelectedGroup: ChatGroup;
   private groupToBeDelete:ChatGroup;
-
-  constructor(private groupService: GroupService, private groupHelper: GroupHelper) { 
+  public currentLoginUser:User;
+  public loggedIn:boolean;
+  @Input() displayButtons:boolean = true;
+  constructor(private groupService: GroupService, private groupHelper: GroupHelper, private userHelper: UserHelper) { 
     this.refreshGroupList();
     this.groupHelper.getCurrentSelectedGroup().subscribe(cg => this.currentSelectedGroup = cg);
     this.groupHelper.getCurrentGroupList().subscribe(gs => this.groups = gs);
+    this.userHelper.getUser().subscribe(u=> this.currentLoginUser = u);
+    this.userHelper.getIsUserLoggedIn().subscribe(i => this.loggedIn = i);
+    this.userHelper.refreashSession();
   }
 
   ngOnInit(): void {
@@ -36,8 +42,14 @@ export class GroupSubListComponent implements OnInit {
   }
 
   selectGroup(g:ChatGroup){
-    this.currentSelectedGroup = g;
-    this.groupHelper.setCurrentSelectedGroup(this.currentSelectedGroup);
+    if (this.currentLoginUser.role.name == "Super Admin" || 
+    this.currentLoginUser.role.name == "Group Admin" ||
+    (this.currentLoginUser.role.name == "Group Assis" && g.admins!=null && g.admins.includes(this.currentLoginUser._id)) ||
+    this.currentLoginUser.role.name == "Normal" && g.members!=null && g.members.includes(this.currentLoginUser._id) ){
+      this.currentSelectedGroup = g;
+      this.groupHelper.setCurrentSelectedGroup(this.currentSelectedGroup);
+    }
+    
   }
 
   removeGroup(g:ChatGroup){

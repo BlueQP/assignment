@@ -15,7 +15,7 @@
                     <label for="">Group Assis</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="isLoggedIn && (user.role.name=='Super Admin' || user.role.name=='Group Admin')">
                 <div class="col-5">
                     <ul class="list-group">
                         <li class="list-group-item gasListHeader">Available Group Assis</li>

@@ -1,5 +1,5 @@
 <ul class="list-group groupNestedListUl">
-    <li class="list-group-item">
+    <li class="list-group-item" *ngIf="displayButtons && loggedIn && (currentLoginUser.role.name=='Super Admin' || currentLoginUser.role.name=='Group Admin')">
         <button type="button" class="btn btn-success" (click)="createNewGroup()">Create New Chat Group</button>
     </li>
     <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: groups }"></ng-container>
@@ -7,13 +7,14 @@
 
 <ng-template #recursiveListTmpl let-list="list">
     <li class="list-group-item list-group-item-action groupsListClass" *ngFor="let item of list"
-        [ngClass]="{'active': currentSelectedGroup == item}" (click)="selectGroup(item);$event.stopPropagation()">
-        <div class="nameButtonContainerDiv">{{ item.name }} &nbsp; 
-            <button type="button" class="btn btn-success btn-sm"
+        [ngClass]="{'active': currentSelectedGroup == item}" (click)="selectGroup(item);$event.stopPropagation()"
+        >
+        <div class="nameButtonContainerDiv" *ngIf="loggedIn && (currentLoginUser.role.name=='Super Admin' || currentLoginUser.role.name=='Group Admin' || (currentLoginUser.role.name=='Group Assis' && item.admins!=null && item.admins.includes(currentLoginUser._id) || (currentLoginUser.role.name=='Normal' && item.members.includes(currentLoginUser._id))))">{{ item.name }} &nbsp; 
+            <button type="button" class="btn btn-success btn-sm" *ngIf="displayButtons && loggedIn && (currentLoginUser.role.name=='Super Admin' || currentLoginUser.role.name=='Group Admin' || (currentLoginUser.role.name=='Group Assis' && item.admins!=null && item.admins.includes(currentLoginUser._id)))"
                 (click)="createSubGroup(item);$event.stopPropagation()">Create Sub-group
             </button>
             <button type="button" class="btn btn-danger btn-sm float-right"
-            (click)="removeGroup(item);$event.stopPropagation()">-
+            (click)="removeGroup(item);$event.stopPropagation()" *ngIf="loggedIn && (currentLoginUser.role.name=='Super Admin' || currentLoginUser.role.name=='Group Admin')">-
         </button>
         </div>
         <ul *ngIf="item.childrenChatGroups!=null && item.childrenChatGroups.length > 0"
@@ -26,7 +27,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmation"
-aria-hidden="true">
+aria-hidden="true" *ngIf="loggedIn && (currentLoginUser.role.name=='Super Admin' || currentLoginUser.role.name=='Group Admin')">
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">

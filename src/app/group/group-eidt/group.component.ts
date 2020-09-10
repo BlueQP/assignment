@@ -5,6 +5,7 @@ import { GroupService } from 'src/app/services/group/group.service';
 import { User } from 'src/app/model/user.model';
 import { map } from 'rxjs/operators';
 import { GroupPath } from 'src/app/model/groupPath.model';
+import { UserHelper } from 'src/app/helpers/userHelper.helper';
 
 
 @Component({
@@ -20,9 +21,12 @@ export class GroupComponent implements OnInit {
   usersOutThisGroup: Array<User>;
   path: GroupPath;
   groups: Array<ChatGroup>;
-
-  constructor(private groupHelper: GroupHelper, private groupService: GroupService) {
-    
+  user: User;
+  isLoggedIn: boolean;
+  constructor(private groupHelper: GroupHelper, private groupService: GroupService, private userHelper: UserHelper) {
+    this.userHelper.getUser().subscribe(u => this.user = u);
+    this.userHelper.getIsUserLoggedIn().subscribe(i => this.isLoggedIn = i);
+    this.userHelper.refreashSession();
   }
 
   ngOnInit(): void {
@@ -37,7 +41,7 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  getAllGroups(){
+  getAllGroups() {
     this.groupHelper.getCurrentGroupList().subscribe(gs => this.groups = gs);
   }
 
@@ -87,7 +91,7 @@ export class GroupComponent implements OnInit {
     this.availableGroupAssisList.splice(this.availableGroupAssisList.indexOf(assis), 1);
 
     this.groupAssisList.push(assis);
-    this.currentSelectedGroup.admins = this.groupAssisList.map((a) => {return a._id});
+    this.currentSelectedGroup.admins = this.groupAssisList.map((a) => { return a._id });
   }
 
   removeFromGroupAssis(assis: User) {
@@ -99,7 +103,7 @@ export class GroupComponent implements OnInit {
     }
     this.groupAssisList.splice(this.groupAssisList.indexOf(assis), 1);
     this.availableGroupAssisList.push(assis);
-    this.currentSelectedGroup.admins = this.groupAssisList.map((a) => {return a._id});
+    this.currentSelectedGroup.admins = this.groupAssisList.map((a) => { return a._id });
   }
 
   addToGroupMember(m: User) {
@@ -112,7 +116,7 @@ export class GroupComponent implements OnInit {
       this.usersInThisGroup = [];
     }
     this.usersInThisGroup.push(m);
-    this.currentSelectedGroup.members = this.usersInThisGroup.map((a) => {return a._id});
+    this.currentSelectedGroup.members = this.usersInThisGroup.map((a) => { return a._id });
   }
 
   removeFromGroupMember(m: User) {
@@ -125,11 +129,16 @@ export class GroupComponent implements OnInit {
       this.usersOutThisGroup = [];
     }
     this.usersOutThisGroup.push(m);
-    this.currentSelectedGroup.members = this.usersInThisGroup.map((a) => {return a._id});
+    this.currentSelectedGroup.members = this.usersInThisGroup.map((a) => { return a._id });
 
   }
 
   save() {
+    if (this.currentSelectedGroup.admins == null) {
+      this.currentSelectedGroup.admins = [];
+    }
+    this.currentSelectedGroup.admins.push(this.user._id);
+
     if (this.currentSelectedGroup._id == null) {
       if (this.currentSelectedGroup.parent != null) {
         this.groupHelper.getCreateChildGroupFullPath();
@@ -142,10 +151,10 @@ export class GroupComponent implements OnInit {
             this.groupService.getAllgroups().subscribe((gs: Array<ChatGroup>) => this.groupHelper.setCurrentGroupList(gs));
           }
         );
-        
+
       }
       else {
-        this.groupService.createRootGroup(this.currentSelectedGroup).subscribe((rt:ChatGroup)=>{
+        this.groupService.createRootGroup(this.currentSelectedGroup).subscribe((rt: ChatGroup) => {
           this.currentSelectedGroup = rt;
           this.groupHelper.setCurrentSelectedGroup(this.currentSelectedGroup);
           this.groupService.getAllgroups().subscribe((gs: Array<ChatGroup>) => this.groupHelper.setCurrentGroupList(gs));
@@ -158,22 +167,22 @@ export class GroupComponent implements OnInit {
         var updatedRootGroup: ChatGroup;
         this.path.root = this.groupHelper.updateRootObjectChild(this.currentSelectedGroup, this.path.root);
         console.log(this.path.root);
-        this.groupService.updateSubGroup(this.path).subscribe((updatedRoot:ChatGroup) => {
-          updatedRootGroup=updatedRoot;
+        this.groupService.updateSubGroup(this.path).subscribe((updatedRoot: ChatGroup) => {
+          updatedRootGroup = updatedRoot;
           this.currentSelectedGroup = this.groupHelper.findGroupBasedOnPath(this.path);
           this.groupHelper.setCurrentSelectedGroup(this.currentSelectedGroup);
           this.groupService.getAllgroups().subscribe((gs: Array<ChatGroup>) => this.groupHelper.setCurrentGroupList(gs));
         });
       }
-      else{
-        this.groupService.updateRootGroup(this.currentSelectedGroup).subscribe((rt:ChatGroup) => {
+      else {
+        this.groupService.updateRootGroup(this.currentSelectedGroup).subscribe((rt: ChatGroup) => {
           this.currentSelectedGroup = rt;
           this.groupHelper.setCurrentSelectedGroup(this.currentSelectedGroup);
           this.groupService.getAllgroups().subscribe((gs: Array<ChatGroup>) => this.groupHelper.setCurrentGroupList(gs));
         });
       }
     }
-    
+
   }
 
 

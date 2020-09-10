@@ -8,5 +8,6 @@ class User{
     role;
     email;
     valid;
+    portraitFileName;
 }
 module.exports = {User}

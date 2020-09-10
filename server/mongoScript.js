@@ -79,7 +79,7 @@ async function seedUserData(db) {
             "username": "super",
             "password": "1",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         },
         {
@@ -88,7 +88,7 @@ async function seedUserData(db) {
             "password": "2",
             "email": "u2@t.c",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         },
         {
@@ -97,7 +97,7 @@ async function seedUserData(db) {
             "password": "3",
             "email": "u3@t.c",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         },
         {
@@ -106,7 +106,7 @@ async function seedUserData(db) {
             "password": "4",
             "email": "u4@t.c",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         },
         {
@@ -115,7 +115,7 @@ async function seedUserData(db) {
             "password": "5",
             "email": "u5@t.c",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         },
         {
@@ -124,7 +124,7 @@ async function seedUserData(db) {
             "password": "6",
             "email": "u6@t.c",
             "valid": true,
-            "portraitFile": "OIP.jpg",
+            "portraitFileName": "OIP.jpg",
             "role": 0
         }
     ]

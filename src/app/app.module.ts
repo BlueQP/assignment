@@ -25,6 +25,7 @@ import { GroupComponent } from './group/group-eidt/group.component';
 import { GroupSubListComponent } from './group/group-sub-list/group-sub-list.component';
 import { GroupHelper } from "./helpers/groupHelper.helper";
 import { GroupService } from "./services/group/group.service";
+import { UserPortraitComponent } from './access/user-portrait/user-portrait.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { GroupService } from "./services/group/group.service";
     UserEditComponent,
     UserSubListComponent,
     GroupComponent,
-    GroupSubListComponent
+    GroupSubListComponent,
+    UserPortraitComponent
   ],
   imports: [
     AppRoutingModule,
