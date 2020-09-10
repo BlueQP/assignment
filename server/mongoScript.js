@@ -298,16 +298,19 @@ async function seedGroupCollection(db) {
 async function seedGroupData(db) {
     console.log("seeding chat groups data:");
     console.log("beggin init groups model...");
-    group1 = new ChatGroup("test group 1", null, null, null, null);
-    group2 = new ChatGroup("test group 2", null, null, null, null);
-    group3 = new ChatGroup("test group 3", null, null, null, null);
-    group4 = new ChatGroup("test group 4", null, null, null, null);
-    group5 = new ChatGroup("test group 5", null, null, null, null);
-    group6 = new ChatGroup("test group 6", null, null, null, null);
+    group1 = new ChatGroup(new ObjectId(), "test group 1", null, null, null, null);
+    group2 = new ChatGroup(new ObjectId(), "test group 2", null, null, null, null);
+    group3 = new ChatGroup(new ObjectId(), "test group 3", null, null, null, null);
+    group4 = new ChatGroup(new ObjectId(), "test group 4", null, null, null, null);
+    group5 = new ChatGroup(new ObjectId(), "test group 5", null, null, null, null);
+    group6 = new ChatGroup(new ObjectId(), "test group 6", null, null, null, null);
     console.log("nesting group 5,6 to 4");
+    group5.parent = group4._id;
+    group6.parent = group4._id;
     group4.childrenChatGroups = [group5, group6];
     console.log(group4);
     console.log("nesting group 4 to 3");
+    group4.parent = group3._id;
     group3.childrenChatGroups = [group4];
     console.log(group3);
     var groupsToAddProto = [group1, group2, group3];

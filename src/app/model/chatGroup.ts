@@ -1,9 +1,10 @@
 import { User } from "./user.model";
 export class ChatGroup {
-    id:number;
+    _id:Object;
+    parent:Object;
     name:string;
-    members:User[];
-    admins:User[];
+    members:Object[];
+    admins:Object[];
     fatherChatGroup:ChatGroup;
     childrenChatGroups:ChatGroup[];
 }

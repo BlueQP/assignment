@@ -1,5 +1,6 @@
 class ChatGroup {
-    constructor(name, members, admins, createdBy, childrenChatGroups){
+    constructor(_id, name, members, admins, createdBy, childrenChatGroups){
+        this._id = _id;
         this.name = name;
         this.members = members;
         this.admins = admins;
@@ -7,6 +8,7 @@ class ChatGroup {
         this.childrenChatGroups = childrenChatGroups;
     }
     _id;
+    parent;
     name;
     members;
     admins;

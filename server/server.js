@@ -8,8 +8,9 @@ const io = require('socket.io')(http);
 const sockets = require('./socket.js');
 const server = require('./listen.js');
 
-var jsonParser = bodyParser.json();
+var jsonParser = express.json({extended:true});
 app.use(jsonParser);
+app.use(express.urlencoded({ extended: true })) 
 //define port number
 const PORT = 3000;
 //cross origin

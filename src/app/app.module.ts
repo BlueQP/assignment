@@ -21,7 +21,7 @@ import { UserEditComponent } from './access/user-edit/user-edit.component';
 import { UserSubListComponent } from './access/user-sub-list/user-sub-list.component';
 import { UserService } from "./services/user/user.service";
 import { NgToggleModule } from "@nth-cloud/ng-toggle";
-import { GroupComponent } from './group/group.component';
+import { GroupComponent } from './group/group-eidt/group.component';
 import { GroupSubListComponent } from './group/group-sub-list/group-sub-list.component';
 import { GroupHelper } from "./helpers/groupHelper.helper";
 import { GroupService } from "./services/group/group.service";
