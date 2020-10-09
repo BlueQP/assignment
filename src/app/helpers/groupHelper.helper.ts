@@ -82,10 +82,13 @@ export class GroupHelper {
       }
       this.findPathFromRootToChild(parent, groupCollection, path);
     }
+<<<<<<< HEAD
     else{
       path.root = child;
       path.indexPath = [];
     }
+=======
+>>>>>>> 5bcbd3fc9775cced4e4fa33eb812094aee542c8a
     return path;
   }
 
