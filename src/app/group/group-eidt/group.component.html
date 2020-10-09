@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <app-group-sub-list></app-group-sub-list>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <label for="currentSelectedGroup.name">Group Name</label>
+                    <input class="form-control" type="text" placeholder="Group Name" name="currentSelectedGroup.name" [(ngModel)]="currentSelectedGroup.name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="">Group Assis</label>
+                </div>
+            </div>
+            <div class="row" *ngIf="isLoggedIn && (user.role.name=='Super Admin' || user.role.name=='Group Admin')">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item gasListHeader">Available Group Assis</li>
+                        <li class="list-group-item gasListItem" 
+                        *ngFor="let a of availableGroupAssisList" 
+                        (click)="addToGroupAssis(a)">
+                        {{a.username}}
+                    </li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    >>
+                    <br>
+                    <<
+                </div>
+                <div class="col-5">
+                    <label for="">
+                        <ul class="list-group">
+                            <li class="list-group-item gasListHeader">Current Group Assis</li>
+                            <li class="list-group-item gasListItem" 
+                            *ngFor="let a of groupAssisList"
+                            (click)="removeFromGroupAssis(a)"
+                            >
+                            {{a.username}}</li>
+                        </ul>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="">Members</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item gasListHeader">Users Outside</li>
+                        <li class="list-group-item gasListItem" 
+                        *ngFor="let a of usersOutThisGroup" 
+                        (click)="addToGroupMember(a)">
+                        {{a.username}}
+                    </li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    >>
+                    <br>
+                    <<
+                </div>
+                <div class="col-5">
+                    <label for="">
+                        <ul class="list-group">
+                            <li class="list-group-item gasListHeader">Users Inside</li>
+                            <li class="list-group-item gasListItem" 
+                            *ngFor="let a of usersInThisGroup"
+                            (click)="removeFromGroupMember(a)"
+                            >
+                            {{a.username}}</li>
+                        </ul>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-success" (click)="save()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+
+<nav id="navbar-example2" class="navbar navbar-light bg-light" *ngIf="currentSelectedGroup">
+<a class="navbar-brand" href="#">Participants</a>
+<ul class="nav nav-pills">
+    <li class="nav-item" *ngFor="let m of currentParticipants">
+    <a class="nav-link">@{{m.username}}</a>
+    </li>
+</ul>
+</nav>
+<div #chatMessageAreaNgID data-spy="scroll" data-target="#navbar-example2" data-offset="0" class="chatMessageArea" *ngIf="currentSelectedGroup">
+    <div *ngFor="let message of currentSelectedGroup.messages">
+        <div>
+            <img style="max-width: 20px;"
+            [src]="SERVER_URL + IMAGE_DIR + (user.portraitFileName? user.portraitFileName : DEFAULT_IMAGE_NAME)">
+            <h6 id="personNamePlaceHolder" class="inlineHeading">@{{message.sentBy.username}}</h6>
+            <span class="timeStampSpanClass">{{message.timestamp | date:'medium'}}</span>
+        </div>
+        <p>{{message.messageBody}}</p>
+    </div>
+</div>
+<form>
+    <div class="form-group">
+      <label for="messageContent">Message</label>
+      <textarea class="form-control" id="messageContent"  [(ngModel)]="messageContent" name="messageContent" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        {{currentSelectedGroup !== undefined? "" : "Select a group to continue"}}
+        <button type="button" (click)="send()" class="btn btn-primary" [disabled]="!currentSelectedGroup">send</button>
+    </div>
+</form>
