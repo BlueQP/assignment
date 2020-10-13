@@ -84,7 +84,6 @@ export class GroupHelper {
     }
     else{
       path.root = child;
-      path.indexPath = [];
     }
     return path;
   }

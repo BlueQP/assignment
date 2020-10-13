@@ -123,9 +123,16 @@ var routes = async function (db, app) {
         if (currentChildGroupInDb.childrenChatGroups == null) {
             currentChildGroupInDb.childrenChatGroups = [];
         }
-        var updateGroupValue = currentChildGroup.childrenChatGroups[pathData[pathData.length - 1]]
+        var pathToGo = 0;
+        if(pathData.length <= 0){
+            pathToGo = 0;
+        }
+        else{
+            pathToGo = pathData[pathData.length - 1];
+        }
+        var updateGroupValue = currentChildGroup.childrenChatGroups[pathToGo]
         currentChildGroupInDb.childrenChatGroups.push(updateGroupValue);
-        var updateGroupInDB = currentChildGroupInDb.childrenChatGroups[pathData[pathData.length - 1]];
+        var updateGroupInDB = currentChildGroupInDb.childrenChatGroups[pathToGo];
         updateGroupInDB._id = new ObjectId();
 
         if (updateGroupInDB.admins == null) {

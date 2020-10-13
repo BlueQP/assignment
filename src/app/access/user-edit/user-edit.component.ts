@@ -59,6 +59,9 @@ export class UserEditComponent implements OnInit {
   }
 
   confirmSaveUser(){
+    if (this.selectedUser.valid == null){
+      this.selectedUser.valid = true;
+    }
     this.userService.saveUser(this.selectedUser).subscribe((updatedUser: User)=>{
       this.selectedUser = updatedUser;
       this.showSaveMessage = true;
